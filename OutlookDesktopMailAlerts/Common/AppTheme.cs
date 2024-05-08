@@ -7,7 +7,7 @@ namespace OutlookDesktopMailAlerts.Common
     {
         public static Color COLOR_DARK = ColorTranslator.FromHtml("#202020");
         public static Color COLOR_LIGHT = ColorTranslator.FromHtml("#3D3D3D");
-        
+
         public static Color COLOR_TEXT = Color.White;
 
         public static Color COLOR_ACCENT = ColorTranslator.FromHtml("#268EED");
@@ -16,5 +16,19 @@ namespace OutlookDesktopMailAlerts.Common
         public static Image PANEL_BG_ACCENT = Resources.panel_highlight_64;
 
         public static int ROUND_CORNERS = 0;
+
+        public static class AppLocation
+        {
+            public static int GetDockLeftX()
+            {
+                return 0;
+            }
+
+            public static int GetDockRightX(Form refForm)
+            {
+                return Screen.GetWorkingArea(refForm).Width - refForm.Width;
+            }
+        }
     }
 }
+

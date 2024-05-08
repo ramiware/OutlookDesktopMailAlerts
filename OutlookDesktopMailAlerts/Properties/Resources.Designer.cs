@@ -133,6 +133,16 @@ namespace OutlookDesktopMailAlerts.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ui_icon_left_64 {
+            get {
+                object obj = ResourceManager.GetObject("ui-icon-left-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ui_icon_newmail_64 {
             get {
                 object obj = ResourceManager.GetObject("ui-icon-newmail-64", resourceCulture);
@@ -156,6 +166,16 @@ namespace OutlookDesktopMailAlerts.Properties {
         internal static System.Drawing.Bitmap ui_icon_read_64 {
             get {
                 object obj = ResourceManager.GetObject("ui-icon-read-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ui_icon_right_64 {
+            get {
+                object obj = ResourceManager.GetObject("ui-icon-right-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

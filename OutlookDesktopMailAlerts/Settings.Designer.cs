@@ -103,7 +103,7 @@
             pictureBox1.BackColor = Color.FromArgb(32, 32, 32);
             pictureBox1.BackgroundImage = Properties.Resources.odma_icon_settings;
             pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox1.Location = new Point(7, 6);
+            pictureBox1.Location = new Point(14, 6);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(22, 22);
             pictureBox1.TabIndex = 6;
@@ -113,7 +113,7 @@
             // 
             labelTitle.BackColor = Color.FromArgb(32, 32, 32);
             labelTitle.Font = new Font("Gadugi", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelTitle.Location = new Point(0, 0);
+            labelTitle.Location = new Point(7, 0);
             labelTitle.Name = "labelTitle";
             labelTitle.Padding = new Padding(30, 0, 0, 0);
             labelTitle.Size = new Size(118, 32);
@@ -125,7 +125,7 @@
             // 
             labelClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelClose.Cursor = Cursors.Hand;
-            labelClose.Location = new Point(389, 9);
+            labelClose.Location = new Point(384, 9);
             labelClose.Name = "labelClose";
             labelClose.Size = new Size(25, 23);
             labelClose.TabIndex = 4;

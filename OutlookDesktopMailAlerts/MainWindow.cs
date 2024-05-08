@@ -148,8 +148,8 @@ namespace OutlookDesktopMailAlerts
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, AppTheme.ROUND_CORNERS, AppTheme.ROUND_CORNERS));
 
             // Set default location to screen bottom-right
-            this.SetBounds(Screen.GetWorkingArea(this).Width - this.Width
-            , Screen.GetWorkingArea(this).Height - this.Height, this.Width, this.Height);
+            this.SetBounds(AppTheme.AppLocation.GetDockRightX(this),
+                           Screen.GetWorkingArea(this).Height - this.Height, this.Width, this.Height);
 
             // Tooltips
             //toolTipLogo.ToolTipTitle = "Outlook Desktop Mail Alerts - " + AppVersion.APP_VERSION;
@@ -164,6 +164,18 @@ namespace OutlookDesktopMailAlerts
             //toolTipUnreadFolders.ToolTipTitle = "Unread - Folders";
             //toolTipUnreadFolders.SetToolTip(labelUnreadFolders, "Total number of unread mail in all folders under your Inbox");
 
+        }
+
+        private void buttonDockLeft_Click(object sender, EventArgs e)
+        {
+            this.SetBounds(AppTheme.AppLocation.GetDockLeftX(),
+                           Screen.GetWorkingArea(this).Height - this.Height, this.Width, this.Height);
+        }
+
+        private void buttonDockRight_Click(object sender, EventArgs e)
+        {
+            this.SetBounds(AppTheme.AppLocation.GetDockRightX(this),
+               Screen.GetWorkingArea(this).Height - this.Height, this.Width, this.Height);
         }
 
 
@@ -631,5 +643,7 @@ namespace OutlookDesktopMailAlerts
                 widgetHideShowToolStripMenuItem.Text = "Show";
             }
         }
+
+ 
     }
 }

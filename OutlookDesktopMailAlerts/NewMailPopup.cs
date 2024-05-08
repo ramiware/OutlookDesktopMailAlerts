@@ -46,7 +46,7 @@ namespace OutlookDesktopMailAlerts
         {
             InitializeComponent();
 
-            Debug.WriteLine("NEW MAIL: " + newMailList.Count);
+            //Debug.WriteLine("NEW MAIL: " + newMailList.Count);
 
             this.parentWindow = parentWindow;
             this.newMailList = newMailList;
@@ -93,14 +93,21 @@ namespace OutlookDesktopMailAlerts
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, AppTheme.ROUND_CORNERS, AppTheme.ROUND_CORNERS));
 
             // Set default location to screen bottom-right
-            this.SetBounds(Screen.GetWorkingArea(this).Width - this.Width
-            , Screen.GetWorkingArea(this).Height - this.Height - parentWindow.Height, this.Width, this.Height);
+            this.SetBounds(parentWindow.Location.X,// Screen.GetWorkingArea(this).Width - this.Width
+                           Screen.GetWorkingArea(this).Height - this.Height - parentWindow.Height, this.Width, this.Height);
 
             // Tooltips
             toolTipDismissPopup.SetToolTip(buttonDismissPopup, "Dismiss Popup");
             toolTipDeleteMail.SetToolTip(buttonDeleteMail, "Delete");
             toolTipOpenMail.SetToolTip(buttonOpenMail, "Open");
             toolTipMarkAsRead.SetToolTip(buttonMarkAsRead, "Mark As Read");
+
+        }
+
+        public void SetDockLocationX(int x)
+        {
+            this.SetBounds(x,
+                           Screen.GetWorkingArea(this).Height - this.Height, this.Width, this.Height);
 
         }
 

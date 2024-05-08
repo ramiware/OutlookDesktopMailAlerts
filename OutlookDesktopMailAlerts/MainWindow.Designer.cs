@@ -37,15 +37,17 @@
             widgetHideShowToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             panelFolders = new Panel();
-            labelUnreadFolders = new Label();
             label1 = new Label();
+            labelUnreadFolders = new Label();
             panelInbox = new Panel();
-            labelUnreadInbox = new Label();
             label4 = new Label();
+            labelUnreadInbox = new Label();
             labelNewMailItems = new Label();
             labelNewMail = new Label();
             labelUnreadTitle = new Label();
             panelMain = new Panel();
+            buttonDockRight = new PictureBox();
+            buttonDockLeft = new PictureBox();
             pictureBoxLogo = new PictureBox();
             panelNew = new Panel();
             label2 = new Label();
@@ -57,6 +59,8 @@
             panelFolders.SuspendLayout();
             panelInbox.SuspendLayout();
             panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)buttonDockRight).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)buttonDockLeft).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
             panelNew.SuspendLayout();
             SuspendLayout();
@@ -108,11 +112,26 @@
             panelFolders.BackColor = Color.Transparent;
             panelFolders.BackgroundImage = Properties.Resources.panel_default_64;
             panelFolders.BackgroundImageLayout = ImageLayout.Stretch;
+            panelFolders.Controls.Add(label1);
             panelFolders.Controls.Add(labelUnreadFolders);
-            panelFolders.Location = new Point(192, 31);
+            panelFolders.Location = new Point(184, 18);
             panelFolders.Name = "panelFolders";
-            panelFolders.Size = new Size(51, 20);
+            panelFolders.Size = new Size(51, 33);
             panelFolders.TabIndex = 4;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(6, 1);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 12);
+            label1.TabIndex = 7;
+            label1.Text = "Folders";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelUnreadFolders
             // 
@@ -120,27 +139,13 @@
             labelUnreadFolders.BackColor = Color.Transparent;
             labelUnreadFolders.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             labelUnreadFolders.ForeColor = Color.White;
-            labelUnreadFolders.Location = new Point(2, 2);
+            labelUnreadFolders.Location = new Point(2, 12);
             labelUnreadFolders.Name = "labelUnreadFolders";
-            labelUnreadFolders.Size = new Size(47, 15);
+            labelUnreadFolders.Size = new Size(47, 18);
             labelUnreadFolders.TabIndex = 1;
             labelUnreadFolders.Text = "999";
             labelUnreadFolders.TextAlign = ContentAlignment.MiddleCenter;
             labelUnreadFolders.Click += labelUnreadFolders_Click;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Arial Narrow", 8.25F, FontStyle.Bold);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(196, 15);
-            label1.Name = "label1";
-            label1.Size = new Size(42, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Folders";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelInbox
             // 
@@ -148,11 +153,26 @@
             panelInbox.BackColor = Color.Transparent;
             panelInbox.BackgroundImage = Properties.Resources.panel_default_64;
             panelInbox.BackgroundImageLayout = ImageLayout.Stretch;
+            panelInbox.Controls.Add(label4);
             panelInbox.Controls.Add(labelUnreadInbox);
-            panelInbox.Location = new Point(135, 31);
+            panelInbox.Location = new Point(127, 18);
             panelInbox.Name = "panelInbox";
-            panelInbox.Size = new Size(51, 20);
+            panelInbox.Size = new Size(51, 33);
             panelInbox.TabIndex = 6;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(10, 1);
+            label4.Name = "label4";
+            label4.Size = new Size(30, 12);
+            label4.TabIndex = 6;
+            label4.Text = "Inbox";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelUnreadInbox
             // 
@@ -160,26 +180,12 @@
             labelUnreadInbox.BackColor = Color.Transparent;
             labelUnreadInbox.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             labelUnreadInbox.ForeColor = Color.White;
-            labelUnreadInbox.Location = new Point(2, 2);
+            labelUnreadInbox.Location = new Point(2, 12);
             labelUnreadInbox.Name = "labelUnreadInbox";
-            labelUnreadInbox.Size = new Size(47, 15);
+            labelUnreadInbox.Size = new Size(47, 18);
             labelUnreadInbox.TabIndex = 1;
             labelUnreadInbox.Text = "888";
             labelUnreadInbox.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Arial Narrow", 8.25F, FontStyle.Bold);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(144, 15);
-            label4.Name = "label4";
-            label4.Size = new Size(33, 15);
-            label4.TabIndex = 5;
-            label4.Text = "Inbox";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelNewMailItems
             // 
@@ -198,7 +204,7 @@
             labelNewMail.AutoSize = true;
             labelNewMail.Font = new Font("Arial Narrow", 8.25F, FontStyle.Bold);
             labelNewMail.ForeColor = Color.White;
-            labelNewMail.Location = new Point(79, 2);
+            labelNewMail.Location = new Point(71, 2);
             labelNewMail.Name = "labelNewMail";
             labelNewMail.Size = new Size(48, 15);
             labelNewMail.TabIndex = 7;
@@ -212,7 +218,7 @@
             labelUnreadTitle.BackColor = Color.Transparent;
             labelUnreadTitle.Font = new Font("Arial Narrow", 8.25F, FontStyle.Bold);
             labelUnreadTitle.ForeColor = Color.White;
-            labelUnreadTitle.Location = new Point(165, 2);
+            labelUnreadTitle.Location = new Point(162, 2);
             labelUnreadTitle.Name = "labelUnreadTitle";
             labelUnreadTitle.Size = new Size(40, 15);
             labelUnreadTitle.TabIndex = 8;
@@ -223,25 +229,53 @@
             // 
             panelMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelMain.BackColor = Color.FromArgb(32, 32, 32);
+            panelMain.Controls.Add(buttonDockRight);
+            panelMain.Controls.Add(buttonDockLeft);
             panelMain.Controls.Add(pictureBoxLogo);
             panelMain.Controls.Add(panelNew);
             panelMain.Controls.Add(labelUnreadTitle);
             panelMain.Controls.Add(labelNewMail);
-            panelMain.Controls.Add(label1);
             panelMain.Controls.Add(panelFolders);
             panelMain.Controls.Add(panelInbox);
-            panelMain.Controls.Add(label4);
             panelMain.Location = new Point(3, 3);
             panelMain.Name = "panelMain";
             panelMain.Size = new Size(253, 57);
             panelMain.TabIndex = 9;
+            // 
+            // buttonDockRight
+            // 
+            buttonDockRight.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonDockRight.BackColor = Color.Transparent;
+            buttonDockRight.BackgroundImage = Properties.Resources.ui_icon_right_64;
+            buttonDockRight.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonDockRight.Cursor = Cursors.Hand;
+            buttonDockRight.Location = new Point(236, 22);
+            buttonDockRight.Name = "buttonDockRight";
+            buttonDockRight.Size = new Size(18, 20);
+            buttonDockRight.TabIndex = 12;
+            buttonDockRight.TabStop = false;
+            buttonDockRight.Click += buttonDockRight_Click;
+            // 
+            // buttonDockLeft
+            // 
+            buttonDockLeft.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonDockLeft.BackColor = Color.Transparent;
+            buttonDockLeft.BackgroundImage = Properties.Resources.ui_icon_left_64;
+            buttonDockLeft.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonDockLeft.Cursor = Cursors.Hand;
+            buttonDockLeft.Location = new Point(0, 22);
+            buttonDockLeft.Name = "buttonDockLeft";
+            buttonDockLeft.Size = new Size(18, 20);
+            buttonDockLeft.TabIndex = 11;
+            buttonDockLeft.TabStop = false;
+            buttonDockLeft.Click += buttonDockLeft_Click;
             // 
             // pictureBoxLogo
             // 
             pictureBoxLogo.BackColor = Color.Transparent;
             pictureBoxLogo.BackgroundImage = Properties.Resources.odma_icon_default;
             pictureBoxLogo.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBoxLogo.Location = new Point(15, 6);
+            pictureBoxLogo.Location = new Point(20, 7);
             pictureBoxLogo.Name = "pictureBoxLogo";
             pictureBoxLogo.Size = new Size(45, 45);
             pictureBoxLogo.TabIndex = 10;
@@ -255,7 +289,7 @@
             panelNew.BackgroundImageLayout = ImageLayout.Stretch;
             panelNew.Controls.Add(label2);
             panelNew.Controls.Add(labelNewMailItems);
-            panelNew.Location = new Point(78, 18);
+            panelNew.Location = new Point(70, 18);
             panelNew.Name = "panelNew";
             panelNew.Size = new Size(51, 33);
             panelNew.TabIndex = 7;
@@ -319,9 +353,13 @@
             TopMost = true;
             contextMenuODMA.ResumeLayout(false);
             panelFolders.ResumeLayout(false);
+            panelFolders.PerformLayout();
             panelInbox.ResumeLayout(false);
+            panelInbox.PerformLayout();
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)buttonDockRight).EndInit();
+            ((System.ComponentModel.ISupportInitialize)buttonDockLeft).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
             panelNew.ResumeLayout(false);
             ResumeLayout(false);
@@ -331,10 +369,8 @@
         private NotifyIcon notifyIconODMA;
         private Panel panelFolders;
         private Label labelUnreadFolders;
-        private Label label1;
         private Panel panelInbox;
         private Label labelUnreadInbox;
-        private Label label4;
         private ContextMenuStrip contextMenuODMA;
         private ToolStripMenuItem exitToolStripMenuItem;
         private Label labelNewMailItems;
@@ -351,5 +387,9 @@
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem widgetToolStripMenuItem;
         private ToolStripMenuItem widgetHideShowToolStripMenuItem;
+        private Label label4;
+        private Label label1;
+        private PictureBox buttonDockLeft;
+        private PictureBox buttonDockRight;
     }
 }
