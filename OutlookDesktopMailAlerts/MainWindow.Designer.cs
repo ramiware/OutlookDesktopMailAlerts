@@ -207,11 +207,12 @@
             // 
             labelNewMail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelNewMail.AutoSize = true;
-            labelNewMail.Font = new Font("Arial Narrow", 8.25F, FontStyle.Bold);
+            labelNewMail.BackColor = Color.Transparent;
+            labelNewMail.Font = new Font("Gadugi", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelNewMail.ForeColor = Color.White;
-            labelNewMail.Location = new Point(71, 2);
+            labelNewMail.Location = new Point(72, 3);
             labelNewMail.Name = "labelNewMail";
-            labelNewMail.Size = new Size(48, 15);
+            labelNewMail.Size = new Size(46, 12);
             labelNewMail.TabIndex = 7;
             labelNewMail.Text = "New Mail";
             labelNewMail.TextAlign = ContentAlignment.MiddleCenter;
@@ -221,11 +222,11 @@
             labelUnreadTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelUnreadTitle.AutoSize = true;
             labelUnreadTitle.BackColor = Color.Transparent;
-            labelUnreadTitle.Font = new Font("Arial Narrow", 8.25F, FontStyle.Bold);
+            labelUnreadTitle.Font = new Font("Gadugi", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelUnreadTitle.ForeColor = Color.White;
-            labelUnreadTitle.Location = new Point(162, 2);
+            labelUnreadTitle.Location = new Point(162, 3);
             labelUnreadTitle.Name = "labelUnreadTitle";
-            labelUnreadTitle.Size = new Size(40, 15);
+            labelUnreadTitle.Size = new Size(37, 12);
             labelUnreadTitle.TabIndex = 8;
             labelUnreadTitle.Text = "Unread";
             labelUnreadTitle.TextAlign = ContentAlignment.MiddleCenter;
@@ -280,11 +281,13 @@
             pictureBoxLogo.BackColor = Color.Transparent;
             pictureBoxLogo.BackgroundImage = Properties.Resources.odma_icon_default;
             pictureBoxLogo.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBoxLogo.Cursor = Cursors.Hand;
             pictureBoxLogo.Location = new Point(20, 7);
             pictureBoxLogo.Name = "pictureBoxLogo";
             pictureBoxLogo.Size = new Size(45, 45);
             pictureBoxLogo.TabIndex = 10;
             pictureBoxLogo.TabStop = false;
+            pictureBoxLogo.Click += pictureBoxLogo_Click;
             // 
             // panelNew
             // 

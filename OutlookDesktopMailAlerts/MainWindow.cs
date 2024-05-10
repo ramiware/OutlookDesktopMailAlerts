@@ -737,19 +737,25 @@ namespace OutlookDesktopMailAlerts
         }
 
 
-    #endregion
+        #endregion
 
 
 
-    /// <summary>
-    /// User folder preference list
-    /// ONLY scan these folders
-    /// </summary>
-    /// <param name="userPreferencesList"></param>
-    public void SetUserPreferencesList(List<String> userPreferencesList)
-    {
-        this.UserPreferencesList = userPreferencesList;
+        /// <summary>
+        /// User folder preference list
+        /// ONLY scan these folders
+        /// </summary>
+        /// <param name="userPreferencesList"></param>
+        public void SetUserPreferencesList(List<String> userPreferencesList)
+        {
+            this.UserPreferencesList = userPreferencesList;
+        }
+
+        private void pictureBoxLogo_Click(object sender, EventArgs e)
+        {
+            Settings settingsWindow = new Settings(oApp, this);
+            settingsWindow.StartPosition = FormStartPosition.CenterScreen;
+            settingsWindow.ShowDialog();
+        }
     }
-
-}
 }
