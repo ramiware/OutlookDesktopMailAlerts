@@ -33,7 +33,7 @@
             panelNav = new Panel();
             buttonAbout = new Label();
             buttonFolders = new Label();
-            pictureBox1 = new PictureBox();
+            pictureBoxSettings = new PictureBox();
             labelTitle = new Label();
             labelClose = new Label();
             tabPageAbout = new TabPage();
@@ -53,7 +53,7 @@
             tabControlSettings = new TabControl();
             imageList1 = new ImageList(components);
             panelNav.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSettings).BeginInit();
             tabPageAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
             tabPageFolders.SuspendLayout();
@@ -98,16 +98,16 @@
             buttonFolders.TextAlign = ContentAlignment.MiddleLeft;
             buttonFolders.Click += buttonFolders_Click;
             // 
-            // pictureBox1
+            // pictureBoxSettings
             // 
-            pictureBox1.BackColor = Color.FromArgb(32, 32, 32);
-            pictureBox1.BackgroundImage = Properties.Resources.odma_icon_settings;
-            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox1.Location = new Point(14, 6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(22, 22);
-            pictureBox1.TabIndex = 6;
-            pictureBox1.TabStop = false;
+            pictureBoxSettings.BackColor = Color.FromArgb(32, 32, 32);
+            pictureBoxSettings.BackgroundImage = Properties.Resources.odma_icon_settings;
+            pictureBoxSettings.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBoxSettings.Location = new Point(14, 6);
+            pictureBoxSettings.Name = "pictureBoxSettings";
+            pictureBoxSettings.Size = new Size(22, 22);
+            pictureBoxSettings.TabIndex = 6;
+            pictureBoxSettings.TabStop = false;
             // 
             // labelTitle
             // 
@@ -276,6 +276,7 @@
             // buttonSave
             // 
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonSave.Cursor = Cursors.Hand;
             buttonSave.FlatStyle = FlatStyle.Flat;
             buttonSave.Location = new Point(326, 414);
             buttonSave.Name = "buttonSave";
@@ -333,7 +334,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 32, 32);
             ClientSize = new Size(417, 508);
-            Controls.Add(pictureBox1);
+            Controls.Add(pictureBoxSettings);
             Controls.Add(panelNav);
             Controls.Add(tabControlSettings);
             Controls.Add(labelClose);
@@ -345,7 +346,7 @@
             ShowInTaskbar = false;
             Text = "Settings";
             panelNav.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSettings).EndInit();
             tabPageAbout.ResumeLayout(false);
             tabPageAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
@@ -372,7 +373,7 @@
         private Label labelAppName;
         private PictureBox pictureBoxLogo;
         private Label labelAbout;
-        private PictureBox pictureBox1;
+        private PictureBox pictureBoxSettings;
         private ImageList imageList1;
         private CheckedListBox checkedListFolders;
         private Label labelFoldersInstructions;

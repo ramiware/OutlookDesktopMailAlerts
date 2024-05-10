@@ -78,20 +78,19 @@
             labelFolderName.ForeColor = Color.White;
             labelFolderName.Location = new Point(58, 8);
             labelFolderName.Name = "labelFolderName";
-            labelFolderName.Size = new Size(101, 16);
+            labelFolderName.Size = new Size(0, 16);
             labelFolderName.TabIndex = 8;
-            labelFolderName.Text = "Folder Name 12";
             // 
             // labelSubject
             // 
             labelSubject.AutoSize = true;
-            labelSubject.Font = new Font("Gadugi", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelSubject.Font = new Font("Gadugi", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSubject.ForeColor = Color.FromArgb(38, 142, 237);
             labelSubject.Location = new Point(10, 49);
             labelSubject.Name = "labelSubject";
-            labelSubject.Size = new Size(154, 17);
+            labelSubject.Size = new Size(160, 14);
             labelSubject.TabIndex = 7;
-            labelSubject.Text = "Subject 12345 ABCDEFG";
+            labelSubject.Text = "Subject 12345 ABCDEFGHIJKL";
             // 
             // labelBody
             // 
@@ -106,11 +105,11 @@
             // labelSenderName
             // 
             labelSenderName.AutoSize = true;
-            labelSenderName.Font = new Font("Gadugi", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelSenderName.Font = new Font("Gadugi", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSenderName.ForeColor = Color.White;
             labelSenderName.Location = new Point(10, 32);
             labelSenderName.Name = "labelSenderName";
-            labelSenderName.Size = new Size(150, 17);
+            labelSenderName.Size = new Size(142, 16);
             labelSenderName.TabIndex = 3;
             labelSenderName.Text = "Sender Name 12345678";
             // 
@@ -147,6 +146,7 @@
             // 
             // buttonMarkAsRead
             // 
+            buttonMarkAsRead.BackColor = Color.Transparent;
             buttonMarkAsRead.BackgroundImage = Properties.Resources.ui_icon_read_64;
             buttonMarkAsRead.BackgroundImageLayout = ImageLayout.Stretch;
             buttonMarkAsRead.Cursor = Cursors.Hand;
@@ -159,6 +159,7 @@
             // 
             // buttonOpenMail
             // 
+            buttonOpenMail.BackColor = Color.Transparent;
             buttonOpenMail.BackgroundImage = Properties.Resources.ui_icon_open_64;
             buttonOpenMail.BackgroundImageLayout = ImageLayout.Stretch;
             buttonOpenMail.Cursor = Cursors.Hand;
@@ -171,6 +172,7 @@
             // 
             // buttonDeleteMail
             // 
+            buttonDeleteMail.BackColor = Color.Transparent;
             buttonDeleteMail.BackgroundImage = Properties.Resources.ui_icon_delete_64;
             buttonDeleteMail.BackgroundImageLayout = ImageLayout.Stretch;
             buttonDeleteMail.Cursor = Cursors.Hand;
@@ -183,6 +185,7 @@
             // 
             // buttonDismissPopup
             // 
+            buttonDismissPopup.BackColor = Color.Transparent;
             buttonDismissPopup.BackgroundImage = Properties.Resources.ui_icon_close_64;
             buttonDismissPopup.BackgroundImageLayout = ImageLayout.Stretch;
             buttonDismissPopup.Cursor = Cursors.Hand;
@@ -222,12 +225,15 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 142, 237);
+            BackgroundImage = Properties.Resources.popup_win_bg_260x155;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(260, 155);
             Controls.Add(buttonMarkAsRead);
             Controls.Add(buttonOpenMail);
             Controls.Add(buttonDeleteMail);
             Controls.Add(buttonDismissPopup);
             Controls.Add(panelMain);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "NewMailPopup";

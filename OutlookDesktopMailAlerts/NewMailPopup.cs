@@ -1,9 +1,6 @@
 ﻿using OutlookDesktopMailAlerts.Common;
 using OutlookDesktopMailAlerts.Structs;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Forms.VisualStyles;
 using Timer = System.Windows.Forms.Timer;
 using Outlook = Microsoft.Office.Interop.Outlook;
 
@@ -14,13 +11,14 @@ namespace OutlookDesktopMailAlerts
     {
         public bool IsRunning = false;
 
-        private MainWindow parentWindow;
+        private int parentWindowLocationX;
+        private int parentWindowHeight;
         private readonly List<NewMailItem> newMailList;
 
         // String max
         private const int MAX_FOLDERNAME_LEN = 15;
         private const int MAX_SENDER_LEN = 22;
-        private const int MAX_SUBJECT_LEN = 22;
+        private const int MAX_SUBJECT_LEN = 26;
         private const int MAX_BODY_LEN = 125;
 
         // Popup Timer
@@ -42,13 +40,13 @@ namespace OutlookDesktopMailAlerts
         /// </summary>
         /// <param name="parentWindow"></param>
         /// <param name="newMailList"></param>
-        public NewMailPopup(MainWindow parentWindow, List<NewMailItem> newMailList)
+        public NewMailPopup(int parentWindowLocationX, int parentWindowHeight, List<NewMailItem> newMailList)
         {
             InitializeComponent();
 
+            this.parentWindowLocationX = parentWindowLocationX;
+            this.parentWindowHeight = parentWindowHeight;
             //Debug.WriteLine("NEW MAIL: " + newMailList.Count);
-
-            this.parentWindow = parentWindow;
             this.newMailList = newMailList;
 
             InitializeUI();
@@ -93,8 +91,8 @@ namespace OutlookDesktopMailAlerts
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, AppTheme.ROUND_CORNERS, AppTheme.ROUND_CORNERS));
 
             // Set default location to screen bottom-right
-            this.SetBounds(parentWindow.Location.X,// Screen.GetWorkingArea(this).Width - this.Width
-                           Screen.GetWorkingArea(this).Height - this.Height - parentWindow.Height, this.Width, this.Height);
+            this.SetBounds(parentWindowLocationX,// Screen.GetWorkingArea(this).Width - this.Width
+                           Screen.GetWorkingArea(this).Height - this.Height - parentWindowHeight, this.Width, this.Height);
 
             // Tooltips
             toolTipDismissPopup.SetToolTip(buttonDismissPopup, "Dismiss Popup");
@@ -104,6 +102,10 @@ namespace OutlookDesktopMailAlerts
 
         }
 
+        /// <summary>
+        /// Called from parent. Docks popup as per user request for app docking
+        /// </summary>
+        /// <param name="x"></param>
         public void SetDockLocationX(int x)
         {
             this.SetBounds(x,
@@ -190,12 +192,31 @@ namespace OutlookDesktopMailAlerts
         {
             IsRunning = true;
             //Debug.WriteLine("\nMSG ID: " + currMsgShownID);
+
+            // Folder name
             this.labelFolderName.Text = (newMailList[currMsgShownID].ChildFolder.Length > MAX_FOLDERNAME_LEN) ? "- " + newMailList[currMsgShownID].ChildFolder.Substring(0, MAX_FOLDERNAME_LEN) : "- " + newMailList[currMsgShownID].ChildFolder;
+
+            // Sender name
             this.labelSenderName.Text = (newMailList[currMsgShownID].From.Length > MAX_SENDER_LEN) ? newMailList[currMsgShownID].From.Substring(0, MAX_SENDER_LEN) : newMailList[currMsgShownID].From;
-            this.labelSubject.Text = (newMailList[currMsgShownID].Subject.Length > MAX_SUBJECT_LEN) ? newMailList[currMsgShownID].Subject.Substring(0, MAX_SUBJECT_LEN) : newMailList[currMsgShownID].Subject;
-            string bodyText = (newMailList[currMsgShownID].Body.Length > MAX_BODY_LEN) ? newMailList[currMsgShownID].Body.Substring(0, MAX_BODY_LEN) : newMailList[currMsgShownID].Body;
+
+            // Subject
+            string subjectText = "";
+            if (newMailList[currMsgShownID].Subject == null)
+                subjectText = "";
+            else
+                subjectText = (newMailList[currMsgShownID].Subject.Length > MAX_SUBJECT_LEN) ? newMailList[currMsgShownID].Subject.Substring(0, MAX_SUBJECT_LEN) : newMailList[currMsgShownID].Subject;
+            this.labelSubject.Text = subjectText;
+
+            // Body
+            string bodyText = "";
+            if (newMailList[currMsgShownID].Body == null)
+                bodyText = "";
+            else
+                bodyText = (newMailList[currMsgShownID].Body.Length > MAX_BODY_LEN) ? newMailList[currMsgShownID].Body.Substring(0, MAX_BODY_LEN) : newMailList[currMsgShownID].Body;
+
             bodyText = bodyText.Replace("\r", "").Replace("\n\n", "\n");
             this.labelBody.Text = bodyText;
+
             this.Refresh();
             this.Show();
 

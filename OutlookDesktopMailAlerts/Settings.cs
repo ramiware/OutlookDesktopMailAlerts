@@ -8,7 +8,7 @@ namespace OutlookDesktopMailAlerts
 {
     public partial class Settings : Form
     {
-        private const int SETTINGS_ROUNDED_CORNERS = 20;
+        private const int WINDOW_ROUNDED_CORNERS = 20;
 
         private const string FOLDER_SCAN_FILENAME = "FolderScanList.txt";
         private String appDataFolder = "";
@@ -94,7 +94,7 @@ namespace OutlookDesktopMailAlerts
 
 
             // Override form to create rounded corners
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, SETTINGS_ROUNDED_CORNERS, SETTINGS_ROUNDED_CORNERS));
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, WINDOW_ROUNDED_CORNERS, WINDOW_ROUNDED_CORNERS));
 
             // Set default location to screen bottom-right
             this.SetBounds(Screen.GetWorkingArea(this).Width - this.Width

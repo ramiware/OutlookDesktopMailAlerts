@@ -37,10 +37,10 @@
             widgetHideShowToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             panelFolders = new Panel();
-            label1 = new Label();
+            labelTitleFolders = new Label();
             labelUnreadFolders = new Label();
             panelInbox = new Panel();
-            label4 = new Label();
+            labelTitleInbox = new Label();
             labelUnreadInbox = new Label();
             labelNewMailItems = new Label();
             labelNewMail = new Label();
@@ -112,26 +112,28 @@
             panelFolders.BackColor = Color.Transparent;
             panelFolders.BackgroundImage = Properties.Resources.panel_default_64;
             panelFolders.BackgroundImageLayout = ImageLayout.Stretch;
-            panelFolders.Controls.Add(label1);
+            panelFolders.Controls.Add(labelTitleFolders);
             panelFolders.Controls.Add(labelUnreadFolders);
             panelFolders.Location = new Point(184, 18);
             panelFolders.Name = "panelFolders";
             panelFolders.Size = new Size(51, 33);
             panelFolders.TabIndex = 4;
+            panelFolders.Click += boxFolders_Click;
             // 
-            // label1
+            // labelTitleFolders
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(6, 1);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 12);
-            label1.TabIndex = 7;
-            label1.Text = "Folders";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            labelTitleFolders.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            labelTitleFolders.AutoSize = true;
+            labelTitleFolders.BackColor = Color.Transparent;
+            labelTitleFolders.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTitleFolders.ForeColor = Color.White;
+            labelTitleFolders.Location = new Point(6, 1);
+            labelTitleFolders.Name = "labelTitleFolders";
+            labelTitleFolders.Size = new Size(38, 12);
+            labelTitleFolders.TabIndex = 7;
+            labelTitleFolders.Text = "Folders";
+            labelTitleFolders.TextAlign = ContentAlignment.MiddleCenter;
+            labelTitleFolders.Click += boxFolders_Click;
             // 
             // labelUnreadFolders
             // 
@@ -145,7 +147,7 @@
             labelUnreadFolders.TabIndex = 1;
             labelUnreadFolders.Text = "999";
             labelUnreadFolders.TextAlign = ContentAlignment.MiddleCenter;
-            labelUnreadFolders.Click += labelUnreadFolders_Click;
+            labelUnreadFolders.Click += boxFolders_Click;
             // 
             // panelInbox
             // 
@@ -153,26 +155,28 @@
             panelInbox.BackColor = Color.Transparent;
             panelInbox.BackgroundImage = Properties.Resources.panel_default_64;
             panelInbox.BackgroundImageLayout = ImageLayout.Stretch;
-            panelInbox.Controls.Add(label4);
+            panelInbox.Controls.Add(labelTitleInbox);
             panelInbox.Controls.Add(labelUnreadInbox);
             panelInbox.Location = new Point(127, 18);
             panelInbox.Name = "panelInbox";
             panelInbox.Size = new Size(51, 33);
             panelInbox.TabIndex = 6;
+            panelInbox.Click += boxInbox_Click;
             // 
-            // label4
+            // labelTitleInbox
             // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(10, 1);
-            label4.Name = "label4";
-            label4.Size = new Size(30, 12);
-            label4.TabIndex = 6;
-            label4.Text = "Inbox";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
+            labelTitleInbox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            labelTitleInbox.AutoSize = true;
+            labelTitleInbox.BackColor = Color.Transparent;
+            labelTitleInbox.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTitleInbox.ForeColor = Color.White;
+            labelTitleInbox.Location = new Point(10, 1);
+            labelTitleInbox.Name = "labelTitleInbox";
+            labelTitleInbox.Size = new Size(30, 12);
+            labelTitleInbox.TabIndex = 6;
+            labelTitleInbox.Text = "Inbox";
+            labelTitleInbox.TextAlign = ContentAlignment.MiddleCenter;
+            labelTitleInbox.Click += boxInbox_Click;
             // 
             // labelUnreadInbox
             // 
@@ -186,6 +190,7 @@
             labelUnreadInbox.TabIndex = 1;
             labelUnreadInbox.Text = "888";
             labelUnreadInbox.TextAlign = ContentAlignment.MiddleCenter;
+            labelUnreadInbox.Click += boxInbox_Click;
             // 
             // labelNewMailItems
             // 
@@ -387,8 +392,8 @@
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem widgetToolStripMenuItem;
         private ToolStripMenuItem widgetHideShowToolStripMenuItem;
-        private Label label4;
-        private Label label1;
+        private Label labelTitleInbox;
+        private Label labelTitleFolders;
         private PictureBox buttonDockLeft;
         private PictureBox buttonDockRight;
     }

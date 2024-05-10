@@ -49,3 +49,4 @@ namespace OutlookDesktopMailAlerts.Common
 // - Installation Package
 // DONE - Replaced Settings-General-AssemblyName from $(MSBuildProjectName) to Outlook Desktop Mail Alerts
 // DONE - Allow option to dock left or right
+// DONE - Add PreviewListWindow

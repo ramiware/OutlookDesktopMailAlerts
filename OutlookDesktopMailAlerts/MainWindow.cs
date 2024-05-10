@@ -3,7 +3,6 @@ using OutlookDesktopMailAlerts.Structs;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security.Policy;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using Timer = System.Windows.Forms.Timer;
 
@@ -34,7 +33,7 @@ namespace OutlookDesktopMailAlerts
 
         private bool FirstRun = true;
 
-        private List<NewFolderMail> newUnreadFolderList;
+        private List<NewFolderMail> runningUnreadFolderList;
         private List<NewMailItem> allUnreadMailList = new List<NewMailItem>();
         private List<NewMailItem> newUnreadMailList = new List<NewMailItem>();
         private DateTime LastRunTimeStamp = DateTime.Now;
@@ -53,8 +52,11 @@ namespace OutlookDesktopMailAlerts
         // Popup Window
         private NewMailPopup mailPopup;
 
+        // PreviewList Window
+        private PreviewListWindow previewListWindow;
 
-        Splash splashWin = new Splash();
+        // Splash Window
+        private Splash splashWin = new Splash();
 
         //------------------------------------------------------------------
         // FUNCTIONS 
@@ -127,6 +129,8 @@ namespace OutlookDesktopMailAlerts
         #endregion
 
 
+        #region UI
+
 
         /// <summary>
         /// Configure the UI for startup
@@ -166,18 +170,34 @@ namespace OutlookDesktopMailAlerts
 
         }
 
+        /// <summary>
+        /// Dock application to screen-left
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDockLeft_Click(object sender, EventArgs e)
         {
             this.SetBounds(AppTheme.AppLocation.GetDockLeftX(),
                            Screen.GetWorkingArea(this).Height - this.Height, this.Width, this.Height);
         }
 
+        /// <summary>
+        /// Dock application to screen-right
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDockRight_Click(object sender, EventArgs e)
         {
             this.SetBounds(AppTheme.AppLocation.GetDockRightX(this),
                Screen.GetWorkingArea(this).Height - this.Height, this.Width, this.Height);
         }
 
+
+
+        #endregion
+
+
+        #region REFRESH MAIL
 
 
         /// <summary>
@@ -244,7 +264,7 @@ namespace OutlookDesktopMailAlerts
                 this.labelNewMailItems.Text = newUnreadMailList.Count.ToString();
                 this.labelNewMailItems.Refresh();
 
-                mailPopup = new NewMailPopup(this, newUnreadMailList);
+                mailPopup = new NewMailPopup(this.Location.X, this.Height, newUnreadMailList);
             }
             else
             {
@@ -330,15 +350,18 @@ namespace OutlookDesktopMailAlerts
                 LastRunTimeStamp = DateTime.Now;
                 // Debug.WriteLine("LAST RUN STAMP: " + LastRunTimeStamp);
 
-                //if (FirstRun)
-                //    Debug.Write("FIRST RUN...");
-                //else
-                //    Debug.Write("SUBSEQUENT RUN...");
+                if (FirstRun)
+                    Debug.Write("[" + LastRunTimeStamp + "] Refresh Running (FirstRun)...");
+                else
+                    Debug.Write("[" + LastRunTimeStamp + "] Refresh Running...");
 
-                newUnreadFolderList = new List<NewFolderMail>();
+                // Update lists and variables
+                runningUnreadFolderList = new List<NewFolderMail>();
+
                 UnreadMailInboxCountPrevious = UnreadMailInboxCountLive;
-                UnreadMailFoldersCountPrevious = UnreadMailFoldersCountLive;
                 UnreadMailInboxCountLive = 0;
+
+                UnreadMailFoldersCountPrevious = UnreadMailFoldersCountLive;
                 UnreadMailFoldersCountLive = 0;
 
                 if (newUnreadMailList != null)
@@ -347,25 +370,27 @@ namespace OutlookDesktopMailAlerts
                     newUnreadMailList = new List<NewMailItem>();
                 }
 
-                //UpdateCountsUI();
+
 
                 // -----------------------------------------------
                 // INBOX
                 // -----------------------------------------------
-                Outlook.Items unreadItems = oInbox.Items.Restrict("[Unread]=true");
-                UnreadMailInboxCountLive = unreadItems.Count;
+
+                // Refreshes newUnreadFolderList
+                Outlook.Items unreadInboxItems = oInbox.Items.Restrict("[Unread]=true");
+                UnreadMailInboxCountLive = unreadInboxItems.Count;
 
                 if (UnreadMailInboxCountLive > 0)
                 {
                     NewFolderMail newInboxMail = new NewFolderMail();
                     newInboxMail.ParentFolder = "Root";
                     newInboxMail.ChildFolder = "Inbox";
-                    newInboxMail.UnreadItems = unreadItems;
-                    newUnreadFolderList.Add(newInboxMail);
+                    newInboxMail.UnreadItems = unreadInboxItems;
+                    runningUnreadFolderList.Add(newInboxMail);
                 }
 
                 // Get/Display the number of unread emails
-                NewFolderMail inboxMail = newUnreadFolderList.Find(r => r.ChildFolder == "Inbox");
+                NewFolderMail inboxMail = runningUnreadFolderList.Find(r => r.ChildFolder == "Inbox");
                 UnreadMailInboxCountLive = (inboxMail.UnreadItems != null) ? inboxMail.UnreadItems.Count : 0;
                 //Debug.WriteLine("UnreadMailInboxCount: " + UnreadMailInboxCountLive);
                 this.labelUnreadInbox.Text = (UnreadMailInboxCountLive > MAX_UNREAD_DISPLAYED) ? MAX_UNREAD_DISPLAYED.ToString() : UnreadMailInboxCountLive.ToString();
@@ -376,7 +401,7 @@ namespace OutlookDesktopMailAlerts
                 EnumerateFoldersInDefaultStore();
 
                 // Get/Display the number of unread emails
-                foreach (NewFolderMail folderMail in newUnreadFolderList)
+                foreach (NewFolderMail folderMail in runningUnreadFolderList)
                 {
                     if (folderMail.ParentFolder.Equals("Inbox") && folderMail.UnreadItems != null && folderMail.UnreadItems.Count > 0)
                         UnreadMailFoldersCountLive += folderMail.UnreadItems.Count;
@@ -385,6 +410,19 @@ namespace OutlookDesktopMailAlerts
                 this.labelUnreadFolders.Text = (UnreadMailFoldersCountLive > MAX_UNREAD_DISPLAYED) ? MAX_UNREAD_DISPLAYED.ToString() : UnreadMailFoldersCountLive.ToString();
 
                 UpdateCountsUI();
+
+                // CLEANUP allUnreadMailList to only include todaysMail
+                foreach (NewMailItem mail in allUnreadMailList)
+                {
+                    TimeSpan span = DateTime.Now.Subtract(mail.ReceivedTime);
+                    if (span.TotalDays > 1)
+                    {
+                        //allUnreadMailList.Remove(mail);
+                        MessageBox.Show("MAIL OLDER THAN 1 DAY: " + span.TotalDays.ToString());
+                    }
+                }
+
+                Debug.WriteLine("Done");
                 return true;
 
             }
@@ -449,7 +487,10 @@ namespace OutlookDesktopMailAlerts
                         // ** CHILD FOLDERS **
                         // IF the parent folder is the inbox
                         // AND there is unread mail
-                        if (parentFolder.Name.Equals("Inbox") && unreadItems.Count > 0)
+                        // ** INBOX FOLDER **
+                        // Must process unread mail through RefreshNewMailItemsList so the popup can receive it
+                        if ((parentFolder.Name.Equals("Inbox") || childFolder.Name.Equals("Inbox"))
+                            && unreadItems.Count > 0)
                         {
                             //Debug.WriteLine("--\nCreate NewFolderMail object");
                             //Debug.WriteLine("ParentFolder: " + parentFolder.Name);
@@ -461,22 +502,24 @@ namespace OutlookDesktopMailAlerts
                             foldermail.ChildFolder = childFolder.Name;
                             foldermail.UnreadItems = unreadItems;
 
-                            newUnreadFolderList.Add(foldermail);
+                            // Only add if parent is Inbox as Inbox itself was already added in RefreshNewMail()
+                            if (parentFolder.Name.Equals("Inbox"))
+                                runningUnreadFolderList.Add(foldermail);
 
                             RefreshNewMailItemsList(parentFolder.Name, childFolder.Name, foldermail);
 
                         }
-                        // ** INBOX FOLDER **
-                        // Must process unread mail through RefreshNewMailItemsList so the popup can receive it
-                        else if (childFolder.Name.Equals("Inbox"))
-                        {
-                            NewFolderMail foldermail = new NewFolderMail();
-                            foldermail.ParentFolder = parentFolder.Name;
-                            foldermail.ChildFolder = childFolder.Name;
-                            foldermail.UnreadItems = unreadItems;
+                        //// ** INBOX FOLDER **
+                        //// Must process unread mail through RefreshNewMailItemsList so the popup can receive it
+                        //else if (childFolder.Name.Equals("Inbox") && unreadItems.Count > 0)
+                        //{
+                        //    NewFolderMail foldermail = new NewFolderMail();
+                        //    foldermail.ParentFolder = parentFolder.Name;
+                        //    foldermail.ChildFolder = childFolder.Name;
+                        //    foldermail.UnreadItems = unreadItems;
 
-                            RefreshNewMailItemsList(parentFolder.Name, childFolder.Name, foldermail);
-                        }
+                        //    RefreshNewMailItemsList(parentFolder.Name, childFolder.Name, foldermail);
+                        //}
 
 
                         // Call EnumerateFolders using childFolder.
@@ -504,7 +547,7 @@ namespace OutlookDesktopMailAlerts
 
             // Filter only todays new mail for performance
             Outlook.Items todayUnreadMailItems = folderMail.UnreadItems.Restrict("[ReceivedTime] > '" + DateTime.Today.ToString("MM/dd/yyyy HH:mm") + "'");
-            folderMail.UnreadItems.Sort("[ReceivedTime]", Outlook.OlSortOrder.olAscending);
+            //folderMail.UnreadItems.Sort("[ReceivedTime]", Outlook.OlSortOrder.olAscending);
             todayUnreadMailItems.Sort("[ReceivedTime]", Outlook.OlSortOrder.olAscending);
             //Debug.WriteLine("FOLDER: " + childFolder);
             //Debug.WriteLine("TOTAL1: " + folderMail.UnreadItems.Count);
@@ -542,6 +585,7 @@ namespace OutlookDesktopMailAlerts
                         newMailItem.Body = msg.Body;
                         newMailItem.Priority = msg.Importance;
                         newMailItem.Message = msg;
+                        newMailItem.ReceivedTime = msg.ReceivedTime;// DateTime.Now; 
 
                         allUnreadMailList.Add(newMailItem); //TODO: Cleanup. Remove items from allUnreadMailList that are not in todayMailItems
                         if (!FirstRun)
@@ -559,29 +603,13 @@ namespace OutlookDesktopMailAlerts
         }
 
 
-        #region BUTTON HANDLERS
-
-        /// <summary>
-        /// Turn off animation
-        /// Display unread messages
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
-
-        /// <summary>
-        /// Turn off animation
-        /// Display unread messages
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void labelUnreadFolders_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         #endregion
+
+
+
+        #region BUTTON HANDLERS
+
 
         /// <summary>
         /// Disconnects from Outlook
@@ -615,15 +643,6 @@ namespace OutlookDesktopMailAlerts
         }
 
 
-        /// <summary>
-        /// User folder preference list
-        /// ONLY scan these folders
-        /// </summary>
-        /// <param name="userPreferencesList"></param>
-        public void SetUserPreferencesList(List<String> userPreferencesList)
-        {
-            this.UserPreferencesList = userPreferencesList;
-        }
 
         /// <summary>
         /// Toggles showing/hiding the widget
@@ -644,6 +663,93 @@ namespace OutlookDesktopMailAlerts
             }
         }
 
- 
+
+
+
+        /// <summary>
+        /// Show Inbox LIST
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void boxInbox_Click(object sender, EventArgs e)
+        {
+            ShowUnreadInListFormat(true);
+        }
+
+        /// <summary>
+        /// Show Folders LIST
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void boxFolders_Click(object sender, EventArgs e)
+        {
+            ShowUnreadInListFormat(false);
+        }
+
+        /// <summary>
+        /// Show Folders/Inbox LIST
+        /// </summary>
+        /// <param name="showInbox"></param>
+        private void ShowUnreadInListFormat(bool showInbox)
+        {
+
+            List<PreviewListItem> previewListItemsList = new List<PreviewListItem>();
+
+            try
+            {
+                foreach (NewFolderMail folder in runningUnreadFolderList)
+                {
+
+                    if (folder.ChildFolder.Equals("Inbox") == showInbox)
+                    {
+                        if (folder.UnreadItems == null)
+                            continue;
+
+                        Outlook.Items unreadMailInFolder = folder.UnreadItems;
+                        unreadMailInFolder.Sort("[ReceivedTime]", Outlook.OlSortOrder.olAscending);
+
+                        foreach (Outlook.MailItem mail in unreadMailInFolder)
+                        {
+                            //MessageBox.Show("Mail: " + folder.ChildFolder + "\n" + mail.SenderName + "\n" + mail.Subject + "\n" + mail.ReceivedTime);
+                            PreviewListItem previewListItem = new PreviewListItem();
+                            previewListItem.Folder = folder.ChildFolder;
+                            previewListItem.SenderName = mail.SenderName;
+                            previewListItem.Subject = mail.Subject;
+                            previewListItem.ReceivedTime = mail.ReceivedTime;
+                            previewListItem.Message = mail;
+
+                            previewListItemsList.Add(previewListItem);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            { }
+            finally
+            {
+                if (previewListWindow != null && previewListWindow.Visible)
+                    previewListWindow.Close();
+
+                previewListWindow = new PreviewListWindow(this.Location.X, this.Height, previewListItemsList);
+            }
+
+        }
+
+
+    #endregion
+
+
+
+    /// <summary>
+    /// User folder preference list
+    /// ONLY scan these folders
+    /// </summary>
+    /// <param name="userPreferencesList"></param>
+    public void SetUserPreferencesList(List<String> userPreferencesList)
+    {
+        this.UserPreferencesList = userPreferencesList;
     }
+
+}
 }

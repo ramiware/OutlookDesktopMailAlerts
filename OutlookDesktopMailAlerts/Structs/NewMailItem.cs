@@ -18,7 +18,7 @@ namespace OutlookDesktopMailAlerts.Structs
         public Outlook.MailItem Message;
 
         public bool Unread;
-        public DateTime LastUpdate;
+        public DateTime ReceivedTime;
         
 
 

@@ -103,6 +103,36 @@ namespace OutlookDesktopMailAlerts.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap popup_win_bg_260x155 {
+            get {
+                object obj = ResourceManager.GetObject("popup-win-bg-260x155", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap previewblock_bg_214x50 {
+            get {
+                object obj = ResourceManager.GetObject("previewblock-bg-214x50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap previewblock_highlight_214x50 {
+            get {
+                object obj = ResourceManager.GetObject("previewblock-highlight-214x50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap profile_128 {
             get {
                 object obj = ResourceManager.GetObject("profile-128", resourceCulture);
