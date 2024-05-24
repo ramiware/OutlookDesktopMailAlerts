@@ -314,6 +314,8 @@ namespace OutlookDesktopMailAlerts
                         outputFile.WriteLine(userFolderSelected);
                 }
 
+                MessageBox.Show("Settings saved successfully", "Confirmed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             catch (System.Exception ex)
             {

@@ -45,8 +45,8 @@ namespace OutlookDesktopMailAlerts.Common
 // DONE - PopUp - Add tooltips
 // DONE - Settings - hide widget
 // DONE - Settings - Ignore folders
-// - UI - update backgrounds to use gradients (canva)
-// - Installation Package
+// DONE - UI - update backgrounds to use gradients (canva)
 // DONE - Replaced Settings-General-AssemblyName from $(MSBuildProjectName) to Outlook Desktop Mail Alerts
 // DONE - Allow option to dock left or right
 // DONE - Add PreviewListWindow
+// - Installation Package

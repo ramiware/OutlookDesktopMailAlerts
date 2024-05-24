@@ -114,6 +114,7 @@
             panelFolders.BackgroundImageLayout = ImageLayout.Stretch;
             panelFolders.Controls.Add(labelTitleFolders);
             panelFolders.Controls.Add(labelUnreadFolders);
+            panelFolders.Cursor = Cursors.Hand;
             panelFolders.Location = new Point(184, 18);
             panelFolders.Name = "panelFolders";
             panelFolders.Size = new Size(51, 33);
@@ -157,6 +158,7 @@
             panelInbox.BackgroundImageLayout = ImageLayout.Stretch;
             panelInbox.Controls.Add(labelTitleInbox);
             panelInbox.Controls.Add(labelUnreadInbox);
+            panelInbox.Cursor = Cursors.Hand;
             panelInbox.Location = new Point(127, 18);
             panelInbox.Name = "panelInbox";
             panelInbox.Size = new Size(51, 33);

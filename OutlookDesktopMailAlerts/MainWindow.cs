@@ -1,5 +1,6 @@
 using OutlookDesktopMailAlerts.Common;
 using OutlookDesktopMailAlerts.Structs;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -46,7 +47,7 @@ namespace OutlookDesktopMailAlerts
 
         // Refresh Timer
         private Timer refreshTimer;
-        private const int REFRESH_TICK = 15000; //5000; //30000; // RAMI TODO: Change back to 30000
+        private const int REFRESH_TICK = 15000; //5000; //30000;
 
 
         // Popup Window
@@ -412,22 +413,50 @@ namespace OutlookDesktopMailAlerts
                 UpdateCountsUI();
 
                 // CLEANUP allUnreadMailList to only include todaysMail
+                // 1 of 2
+                List<NewMailItem> oldReadMailPurgeList = new List<NewMailItem>();
                 foreach (NewMailItem mail in allUnreadMailList)
                 {
                     TimeSpan span = DateTime.Now.Subtract(mail.ReceivedTime);
                     if (span.TotalDays > 1)
                     {
-                        //allUnreadMailList.Remove(mail);
-                        MessageBox.Show("MAIL OLDER THAN 1 DAY: " + span.TotalDays.ToString());
+                        //if (!mail.Unread)
+                        //{
+                        oldReadMailPurgeList.Add(mail);
+                        Debug.WriteLine("MAIL OLDER THAN 1 DAY: " + span.TotalDays.ToString());
+                        //}
+                    }
+                }   
+                // CLEANUP allUnreadMailList to only include todaysMail
+                // 2 of 2
+                foreach (NewMailItem mail in oldReadMailPurgeList)
+                {
+                    int foundIndex = allUnreadMailList.FindIndex(0, allUnreadMailList.Count - 1, m => m.ID == mail.ID);
+                    if (foundIndex >= 0)
+                    {
+                        Debug.WriteLine("OLD MAIL REMOVED AT INDEX: " + foundIndex);
+                        allUnreadMailList.RemoveAt(foundIndex);
                     }
                 }
 
+
                 Debug.WriteLine("Done");
+
                 return true;
 
             }
             catch (Exception ex)
             {
+
+                // ex.Message = The RPC server is unavailable. (0x800706BA)
+                // ex.ErrorCode = -2147023174
+                if (ex.HResult == -2147023174)
+                {
+                    Application.Restart();
+                    Environment.Exit(0);
+
+                }
+
                 Debug.WriteLine("RefreshNewMail Exception: " + ex.Message);
                 return false;
             }
@@ -509,18 +538,6 @@ namespace OutlookDesktopMailAlerts
                             RefreshNewMailItemsList(parentFolder.Name, childFolder.Name, foldermail);
 
                         }
-                        //// ** INBOX FOLDER **
-                        //// Must process unread mail through RefreshNewMailItemsList so the popup can receive it
-                        //else if (childFolder.Name.Equals("Inbox") && unreadItems.Count > 0)
-                        //{
-                        //    NewFolderMail foldermail = new NewFolderMail();
-                        //    foldermail.ParentFolder = parentFolder.Name;
-                        //    foldermail.ChildFolder = childFolder.Name;
-                        //    foldermail.UnreadItems = unreadItems;
-
-                        //    RefreshNewMailItemsList(parentFolder.Name, childFolder.Name, foldermail);
-                        //}
-
 
                         // Call EnumerateFolders using childFolder.
                         EnumerateFolders(childFolder);
@@ -547,8 +564,8 @@ namespace OutlookDesktopMailAlerts
 
             // Filter only todays new mail for performance
             Outlook.Items todayUnreadMailItems = folderMail.UnreadItems.Restrict("[ReceivedTime] > '" + DateTime.Today.ToString("MM/dd/yyyy HH:mm") + "'");
-            //folderMail.UnreadItems.Sort("[ReceivedTime]", Outlook.OlSortOrder.olAscending);
             todayUnreadMailItems.Sort("[ReceivedTime]", Outlook.OlSortOrder.olAscending);
+
             //Debug.WriteLine("FOLDER: " + childFolder);
             //Debug.WriteLine("TOTAL1: " + folderMail.UnreadItems.Count);
             //Debug.WriteLine("TOTAL2: " + todayUnreadMailItems.Count);
