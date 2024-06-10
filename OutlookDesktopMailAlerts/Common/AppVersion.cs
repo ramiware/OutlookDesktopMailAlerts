@@ -49,4 +49,5 @@ namespace OutlookDesktopMailAlerts.Common
 // DONE - Replaced Settings-General-AssemblyName from $(MSBuildProjectName) to Outlook Desktop Mail Alerts
 // DONE - Allow option to dock left or right
 // DONE - Add PreviewListWindow
+// DONE - Add "mark as read' on preview lists
 // - Installation Package

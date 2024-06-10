@@ -73,6 +73,16 @@ namespace OutlookDesktopMailAlerts.CustomUI
             catch { }
         }
 
+        private void buttonMarkAsRead_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                currMail.UnRead = false;
+                this.Hide();
+            }
+            catch { }
+        }
+
         private void UnreadMailBlock_MouseHover(object sender, EventArgs e)
         {
             this.BackgroundImage = Resources.previewblock_highlight_214x50;
@@ -84,5 +94,8 @@ namespace OutlookDesktopMailAlerts.CustomUI
             this.BackgroundImage = Resources.previewblock_bg_214x50;
             this.Refresh();
         }
+
+
+
     }
 }

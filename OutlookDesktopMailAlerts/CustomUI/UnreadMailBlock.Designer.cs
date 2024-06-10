@@ -33,7 +33,9 @@
             labelReceivedTime = new Label();
             labelFolderName = new Label();
             buttonOpenMail = new PictureBox();
+            buttonMarkAsRead = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)buttonOpenMail).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)buttonMarkAsRead).BeginInit();
             SuspendLayout();
             // 
             // labelSenderName
@@ -104,12 +106,26 @@
             buttonOpenMail.MouseLeave += UnreadMailBlock_MouseLeave;
             buttonOpenMail.MouseHover += UnreadMailBlock_MouseHover;
             // 
+            // buttonMarkAsRead
+            // 
+            buttonMarkAsRead.BackColor = Color.Transparent;
+            buttonMarkAsRead.BackgroundImage = Properties.Resources.ui_icon_read_64;
+            buttonMarkAsRead.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonMarkAsRead.Cursor = Cursors.Hand;
+            buttonMarkAsRead.Location = new Point(172, 31);
+            buttonMarkAsRead.Name = "buttonMarkAsRead";
+            buttonMarkAsRead.Size = new Size(16, 16);
+            buttonMarkAsRead.TabIndex = 11;
+            buttonMarkAsRead.TabStop = false;
+            buttonMarkAsRead.Click += buttonMarkAsRead_Click;
+            // 
             // UnreadMailBlock
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
             BackgroundImage = Properties.Resources.previewblock_bg_214x50;
+            Controls.Add(buttonMarkAsRead);
             Controls.Add(buttonOpenMail);
             Controls.Add(labelFolderName);
             Controls.Add(labelReceivedTime);
@@ -121,6 +137,7 @@
             MouseLeave += UnreadMailBlock_MouseLeave;
             MouseHover += UnreadMailBlock_MouseHover;
             ((System.ComponentModel.ISupportInitialize)buttonOpenMail).EndInit();
+            ((System.ComponentModel.ISupportInitialize)buttonMarkAsRead).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -132,5 +149,6 @@
         private Label labelReceivedTime;
         private Label labelFolderName;
         private PictureBox buttonOpenMail;
+        private PictureBox buttonMarkAsRead;
     }
 }
