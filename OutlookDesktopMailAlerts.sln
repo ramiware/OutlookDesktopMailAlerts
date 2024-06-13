@@ -5,16 +5,27 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookDesktopMailAlerts", "OutlookDesktopMailAlerts\OutlookDesktopMailAlerts.csproj", "{DB677ECF-D2E4-49FC-B592-60CAE5090197}"
 EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "OutlookDesktopMailAlertsSetup", "OutlookDesktopMailAlertsSetup\OutlookDesktopMailAlertsSetup.aiproj", "{2E27D682-6FB0-4F0B-A7A7-4AB2D15C9347}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DefaultBuild|Any CPU = DefaultBuild|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DB677ECF-D2E4-49FC-B592-60CAE5090197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB677ECF-D2E4-49FC-B592-60CAE5090197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB677ECF-D2E4-49FC-B592-60CAE5090197}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB677ECF-D2E4-49FC-B592-60CAE5090197}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
 		{DB677ECF-D2E4-49FC-B592-60CAE5090197}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB677ECF-D2E4-49FC-B592-60CAE5090197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E27D682-6FB0-4F0B-A7A7-4AB2D15C9347}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{2E27D682-6FB0-4F0B-A7A7-4AB2D15C9347}.Debug|Any CPU.Build.0 = DefaultBuild
+		{2E27D682-6FB0-4F0B-A7A7-4AB2D15C9347}.DefaultBuild|Any CPU.ActiveCfg = DefaultBuild
+		{2E27D682-6FB0-4F0B-A7A7-4AB2D15C9347}.DefaultBuild|Any CPU.Build.0 = DefaultBuild
+		{2E27D682-6FB0-4F0B-A7A7-4AB2D15C9347}.Release|Any CPU.ActiveCfg = DefaultBuild
+		{2E27D682-6FB0-4F0B-A7A7-4AB2D15C9347}.Release|Any CPU.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

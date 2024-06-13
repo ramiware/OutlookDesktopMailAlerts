@@ -36,7 +36,7 @@ namespace OutlookDesktopMailAlerts.Common
  *********************************************************************************************************************/
 
 // *****************************
-// OPEN TASKS
+// OPEN TASKS V1.00
 // *****************************
 // DONE - PopUp - hide for last tick. This will help when there are multiple popups.
 // DONE - PopUp - Add childFolder as part of title (ie: Mail - "DSR")
@@ -50,4 +50,4 @@ namespace OutlookDesktopMailAlerts.Common
 // DONE - Allow option to dock left or right
 // DONE - Add PreviewListWindow
 // DONE - Add "mark as read' on preview lists
-// - Installation Package
+// DONE - Installation Package

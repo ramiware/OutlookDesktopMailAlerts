@@ -280,7 +280,9 @@ namespace OutlookDesktopMailAlerts
             }
 
             // Save data to file
-            SaveData(checkedItemCollectionAsStringList);
+            bool saveResult = SaveData(checkedItemCollectionAsStringList);
+            if (saveResult)
+                MessageBox.Show("Settings saved successfully", "Confirmed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Set MainWindow UserPreferencesList reference
             mainWindowRef.SetUserPreferencesList(userFolderPreferencesList);
@@ -291,14 +293,16 @@ namespace OutlookDesktopMailAlerts
         /// Process saving folder selections
         /// </summary>
         /// <param name="folderList"></param>
-        private void SaveData(List<string> folderList)
+        private bool SaveData(List<string> folderList)
         {
+
             FileStream foldersFile = null;
             try
             {
                 // Create Path if it does not exist - appDataFolder
-                if (!Directory.Exists(appDataFolder))
+                if (!Directory.Exists(appDataFolder)) { 
                     Directory.CreateDirectory(appDataFolder);
+                }
 
                 // Create File if it does not exist - FOLDER_SCAN_FILENAME
                 if (!File.Exists(appDataFolder + @"\" + FOLDER_SCAN_FILENAME))
@@ -314,15 +318,14 @@ namespace OutlookDesktopMailAlerts
                         outputFile.WriteLine(userFolderSelected);
                 }
 
-                MessageBox.Show("Settings saved successfully", "Confirmed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                return true;
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("An Error occurred while trying to save your settings. You may not have write privelages." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An Error occurred while trying to save your settings. You may not have write privelages. Contact your administrator.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (foldersFile != null)
                     foldersFile.Close();
-                return;
+                return false;
             }
         }
 
